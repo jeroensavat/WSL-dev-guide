@@ -1,4 +1,4 @@
-# Enhanced Guide for Setting Up Your Windows Development Environment for AWS/k8s/terraform
+# Enhancing Your Windows Development Environment for AWS/k8s/terraform with WSL
 
 Note this guide is opinionated, and assumes you are using Windows 10 or later with WSL2.
 
@@ -219,17 +219,24 @@ eval `ssh-agent -s`
 ssh-add /home/<user>/.ssh/id_rsa
 ```
 
-## TODO: Add instructions for setting up Docker for WSL
-
-## TODO: Add instructions for setting up terraform tools (terraform, tfenv, tflint)
-
 ## (optional) Enhanced cd Command for Windows Paths 
 Modify the cd command in .bashrc to handle Windows paths.
+(add this  to the end of your .bashrc)
 
 ```bash
-# Add the following function to the end of your .bashrc file.
-# ... [Insert the cd function here]
-# Save and exit.
+cd() {
+    if [[ "$1" =~ ^[a-zA-Z]: ]]; then
+        # It's a Windows path
+        local win_path="${*//\\//}"  # Replace backslashes with forward slashes in all arguments
+        local drive="${win_path:0:1}"  # Extract drive letter
+        local path="${win_path:2}"  # Extract path after drive letter
+        local wsl_path="/mnt/${drive,,}/${path//:/}"  # Convert drive letter to lowercase, remove colon, and construct WSL path
+        command cd "$wsl_path"
+    else
+        # It's a Unix path
+        command cd "$@"
+    fi
+}
 ```
 
 ### (optional) Installing various common tools/utils
@@ -242,3 +249,6 @@ sudo apt install python3 python3-pip ipython3
 sudo apt install jq
 sudo apt install curl
 ```
+
+## TODO: Add instructions for setting up Docker for WSL
+## TODO: Add instructions for setting up terraform tools (terraform, tfenv, tflint)
