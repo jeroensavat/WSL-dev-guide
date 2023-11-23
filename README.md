@@ -226,7 +226,7 @@ cd() {
 ```
 
 ### (optional) Installing various common tools/utils
-Not installed by default on WSL but (in my experience) needed sooner or later:
+Not installed by default on debian but (in my experience) needed sooner or later:
 python3, jq, curl
 
 ```bash
