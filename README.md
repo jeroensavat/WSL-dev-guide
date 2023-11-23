@@ -130,7 +130,7 @@ region = eu-west-1
 source_profile = i
 role_arn = arn:aws:iam::<aws-acount-id>:role/eks-lec-staging-readonly
 mfa_serial = arn:aws:iam::<aws-acount-id>:mfa/<your.user>
-mfa_process=op --account <1pass-account-name> item get "LS - AWS - PROD" --otp
+mfa_process=op --account <1pass-account-name> item get "LS - AWS - STAG" --otp
 region = eu-west-1
 
 [profile eks-lec-production-readonly]
